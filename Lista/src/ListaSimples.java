@@ -7,6 +7,10 @@ public class ListaSimples implements Lista {
 		return primeira;
 	}
 	
+	public Celula getFim() { //Retornar o ultimo elemento da lista
+		return primeira;
+	}
+	
 	
 
 	@Override
