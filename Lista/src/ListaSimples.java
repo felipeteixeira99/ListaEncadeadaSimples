@@ -134,6 +134,7 @@ public class ListaSimples implements Lista  {
 	@Override
 	public boolean isempty() {
 		return primeira == null; //primeira aponta para null ? 
+		//return primeira == null ? true : false;
 	}
 
 	@Override

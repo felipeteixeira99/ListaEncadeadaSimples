@@ -26,6 +26,9 @@ public class TestarLista {
 		System.out.println(lista);
 		lista.RemoverElementoPosicao(2);
 		System.out.println(lista);
+		lista.esvaziaLista();
+		String estadoLista =  lista.isempty() ? "vazia": "preenchida";
+		System.out.println(estadoLista);
 	}
 
 }
