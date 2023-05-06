@@ -45,34 +45,71 @@ public class ListaSimples implements Lista  {
 
 	@Override
 	public void AdicionarElementoPosicao(String valor, int posicao) {
-		// TODO Adicionar um elemento em uma posicao especifica 
 		if(posicao > Tamanho()) return; //serve para verificar se nao esta tentando colocar em uma posicao que ja existe um valor dentro 
 		Celula novaCelula = new Celula();
 		novaCelula.setValor(valor);
 		
 		if(posicao == 0) {
 			Celula proxima = primeira;
-			//Celula anterior =;
 			primeira = novaCelula;
 			primeira.setProximo(proxima);
 		}
-	}
+		else {
+			Celula anterior = getCelula(posicao -1);
+			Celula proxima = anterior.getProximo();
+			anterior.setProximo(novaCelula);
+			novaCelula.setProximo(proxima);
+			}	
+		}
 
 	@Override
 	public void RemoverElemento(String valor) {
-		// TODO remover elemento 
+		if(!isempty()) {
+			Celula elementoRemover = null;
+			for(int i = 0; i < Tamanho(); i++) {
+				if(Elemento(i).equals(valor));{
+					elementoRemover = getCelula(i);
+				break;
+			}
+		}
 		
+		if(elementoRemover == null) return;
+		
+		if(elementoRemover == primeira) {
+			primeira = primeira.getProximo();
+			return;
+		}
+		
+		Celula elementoAnterior = null;
+		for(int i = 0; i < Tamanho(); i++) {
+			if(getCelula(i).getProximo() == elementoRemover);{
+				elementoAnterior = getCelula(i);
+				break;
+			}
+		}
+		
+		elementoAnterior.setProximo(elementoRemover.getProximo());
 	}
+}
 
 	@Override
-	public void RemoverElementoPosicao(int posicao) {
-		// TODO remover elemento por posicao 
+	public void RemoverElementoPosicao(int posicao) { 
+		if(posicao < Tamanho()) {
+			if(posicao == 0) {
+				primeira = primeira.getProximo();
+			}
+			else {
+				Celula elementoRemover = getCelula(posicao);
+				Celula anterior = getCelula(posicao -1);
+				Celula proxima = elementoRemover.getProximo();
+				anterior.setProximo(proxima);
+			}
+		}
 		
 	}
 
 	@Override
 	public String Elemento(int posicao) {
-		// TODO retornar o elemento da lista 
 		Celula elemento = getCelula(posicao);
 		if(elemento != null) {
 			return elemento.getValor();
@@ -84,9 +121,14 @@ public class ListaSimples implements Lista  {
 	}
 
 	@Override
-	public int Posicao(String valor) {
-		// TODO retornar a posicao do elemento 
-		return 0;
+	public int Posicao(String valor) { 
+		for(int i = 0; i < Tamanho(); i++) {
+			if(Elemento(i).equals(valor)) {
+				return i;
+			}
+		}
+		return -1;
+		
 	}
 
 	@Override
@@ -122,9 +164,9 @@ public class ListaSimples implements Lista  {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < Tamanho(); i++) {
-			sb.append("[");
 			sb.append(Elemento(i));
-			sb.append("] ");
+			sb.append(" [");
+			sb.append(i+"] ");
 		}
 		return sb.toString();
 	}
